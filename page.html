@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div align="center">
+<div class="frame" align="center">
+    <link href="style.css" rel="stylesheet" type="text/css" media="all">
+<div class="menu" align="left">
+        Dispersion:<br> <input type="number" id="dispersion" step="0.01">
+    <hr>
+Seed:<br> <textarea class="seed" id="seed" cols="50" rows="5"></textarea>
+    <button type="button" onclick="GenerateSeed();">Random</button>
+<hr>
+Generate:<br>
+<button type="button" onclick="GenerateR();">R</button>
+<button type="button" onclick="GenerateG();">G</button>
+<button type="button" onclick="GenerateB();">B</button>
+<button type="button" onclick="GenerateSeed(); GenerateR();">rnd R</button>
+<button type="button" onclick="GenerateSeed(); GenerateG();">rnd G</button>
+<button type="button" onclick="GenerateSeed(); GenerateB();">rnd B</button>
+<hr>
+Clamp:<br>
+Min:<input class="red" type="number" id="clampMinR" step="0.01" value="0"> 
+Max:<input class="red" type="number" id="clampMaxR" step="0.01" value="255">
+<br>
+Min:<input class="green" type="number" id="clampMinG" step="0.01" value="0">
+Max:<input class="green" type="number" id="clampMaxG" step="0.01" value="255">
+<br>
+Min:<input class="blue" type="number" id="clampMinB" step="0.01" value="0">
+Max:<input class="blue" type="number" id="clampMaxB" step="0.01"value="255">
+<hr>
+Clear:<br>
+<button type="button" onclick="ClearR();">R</button>
+<button type="button" onclick="ClearG();">G</button>
+<button type="button" onclick="ClearB();">B</button>
+</div>
+<div class="canvas">
+<canvas id="myCanvas" width="512" height="512" style="border:1px solid #000000;">
+Your browser does not support the HTML5 canvas tag.
+</canvas>
+</div>
+<div class="bottomtext">Michal Czajka 2018</div>
+</div>
+</div>
+<script src="seedrandom.js"></script>
+<script src="generator.js"></script>
+
+
+</body>
+</html>
