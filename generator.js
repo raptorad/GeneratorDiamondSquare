@@ -7,25 +7,22 @@ var dispersion=10;
 var clampR={
 	min_input:document.getElementById("clampMinR"),
 	max_input:document.getElementById("clampMaxR"),
-	getMin:function(){return min_input.value},
-	getMax:function(){return max_input.valye}
+	getMin:function(){return this.min_input.value},
+	getMax:function(){return this.max_input.value}
 }
 var clampG={
 	min_input:document.getElementById("clampMinG"),
 	max_input:document.getElementById("clampMaxG"),
-	getMin:function(){return min_input.value},
-	getMax:function(){return max_input.valye}
+	getMin:function(){return this.min_input.value},
+	getMax:function(){return this.max_input.value}
 }
 var clampB={
 	min_input:document.getElementById("clampMinB"),
 	max_input:document.getElementById("clampMaxB"),
-	getMin:function(){return min_input.value},
-	getMax:function(){return max_input.valye}
+	getMin:function(){return this.min_input.value},
+	getMax:function(){return this.max_input.value}
 }
-function InitClamp()
-{
-	clampR.min_input.value=clampR.min
-}
+
 var seed_Input=document.getElementById("seed");
 var dispersion_Input=document.getElementById("dispersion");
 dispersion_Input.value=dispersion;
@@ -179,7 +176,7 @@ function nextPowerOfTwo(x){
 }
 function clampFromObj(num,clampObj)
 {
-	return clamp(num, clampObj.getMin(), clmapObj.getMin());
+	return clamp(num, clampObj.getMin(), clampObj.getMax());
 }
 function clamp(num, min, max) {
   return num <= min ? min : num >= max ? max : num;
