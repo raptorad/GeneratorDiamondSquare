@@ -4,24 +4,25 @@ ctx.moveTo(0, 0);
 var _sizeX=513;
 var _sizeY=513;
 var dispersion=10;
-var clampR={
-	min_input:document.getElementById("clampMinR"),
-	max_input:document.getElementById("clampMaxR"),
-	getMin:function(){return this.min_input.value},
-	getMax:function(){return this.max_input.value}
+function GetnerateRangeObj(operationName,Col)
+{
+	return {
+		min_input:document.getElementById(operationName+"Min"+Col),
+		max_input:document.getElementById(operationName+"Max"+Col),
+		getMin:function(){return this.min_input.value},
+		getMax:function(){return this.max_input.value}
+	}
 }
-var clampG={
-	min_input:document.getElementById("clampMinG"),
-	max_input:document.getElementById("clampMaxG"),
-	getMin:function(){return this.min_input.value},
-	getMax:function(){return this.max_input.value}
+function GetnerateClampObj(Col)
+{
+	return GetnerateRangeObj("clamp",Col);
 }
-var clampB={
-	min_input:document.getElementById("clampMinB"),
-	max_input:document.getElementById("clampMaxB"),
-	getMin:function(){return this.min_input.value},
-	getMax:function(){return this.max_input.value}
-}
+var clampR=GetnerateClampObj("R");
+var clampG=GetnerateClampObj("G");
+var clampB=GetnerateClampObj("B");
+var acceptR=GetnerateRangeObj("accept","R");
+var acceptG=GetnerateRangeObj("accept","G");
+var acceptB=GetnerateRangeObj("accept","B");
 
 var seed_Input=document.getElementById("seed");
 var dispersion_Input=document.getElementById("dispersion");
@@ -92,9 +93,9 @@ function DrawDaimondSquare(arrR,arrG,arrB,context)
 	for(let x=0;x<_sizeX;++x)
 		for(let y=0;y<_sizeY;++y)
 		{
-			var r=clampFromObj(arrR[x][y],clampR);
-			var g=clampFromObj(arrG[x][y],clampG);
-			var b=clampFromObj(arrB[x][y],clampB);
+			var r=filterFromObj(arrR[x][y],acceptR,clampR);
+			var g=filterFromObj(arrG[x][y],acceptG,clampG);
+			var b=filterFromObj(arrB[x][y],acceptB,clampB);
 			ctx.fillStyle = "rgba("+r+","+g+","+b+","+1+")";
 		
 			context.fillRect(x,y,1,1);
@@ -174,10 +175,23 @@ function nextPowerOfTwo(x){
 	}
 	return pow;
 }
+function filterFromObj(num,acceptObj,clampObj)
+{
+	return clampFromObj(acceptFromObj(num,acceptObj),clampObj);
+}
 function clampFromObj(num,clampObj)
 {
 	return clamp(num, clampObj.getMin(), clampObj.getMax());
 }
 function clamp(num, min, max) {
   return num <= min ? min : num >= max ? max : num;
+}
+function acceptFromObj(num,acceptObj)
+{
+	return accept(num,acceptObj.getMin(),acceptObj.getMax());
+}
+function accept(num,min,max)
+{
+	if(num<min || num>max) return 0;
+	return num;
 }
